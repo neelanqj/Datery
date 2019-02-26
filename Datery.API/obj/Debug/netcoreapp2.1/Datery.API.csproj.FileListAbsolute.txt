@@ -12,3 +12,17 @@ C:\Storage\C\datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.AssemblyInfo.c
 C:\Storage\C\datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.RazorTargetAssemblyInfo.cache
 C:\Storage\C\datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.dll
 C:\Storage\C\datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.pdb
+C:\Storage\ASPCore\Datery\Datery.API\bin\Debug\netcoreapp2.1\Datery.API.deps.json
+C:\Storage\ASPCore\Datery\Datery.API\bin\Debug\netcoreapp2.1\Datery.API.runtimeconfig.json
+C:\Storage\ASPCore\Datery\Datery.API\bin\Debug\netcoreapp2.1\Datery.API.runtimeconfig.dev.json
+C:\Storage\ASPCore\Datery\Datery.API\bin\Debug\netcoreapp2.1\Datery.API.dll
+C:\Storage\ASPCore\Datery\Datery.API\bin\Debug\netcoreapp2.1\Datery.API.pdb
+C:\Storage\ASPCore\Datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.csprojAssemblyReference.cache
+C:\Storage\ASPCore\Datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.csproj.CoreCompileInputs.cache
+C:\Storage\ASPCore\Datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.RazorAssemblyInfo.cache
+C:\Storage\ASPCore\Datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.RazorAssemblyInfo.cs
+C:\Storage\ASPCore\Datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.AssemblyInfoInputs.cache
+C:\Storage\ASPCore\Datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.AssemblyInfo.cs
+C:\Storage\ASPCore\Datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.RazorTargetAssemblyInfo.cache
+C:\Storage\ASPCore\Datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.dll
+C:\Storage\ASPCore\Datery\Datery.API\obj\Debug\netcoreapp2.1\Datery.API.pdb
