@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Datery.API.Controllers;
 using Datery.API.DTOs;
 using Datery.API.Models;
 using System;
@@ -26,6 +27,9 @@ namespace Datery.API.Helpers
                 })
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(d => d.DateOfBirth.CalculateAge()));
             CreateMap<Photo, PhotosForDetailDTO>();
+            CreateMap<UserForUpdateDTO, User>();
+            CreateMap<Photo, PhotoForReturnDTO>();
+            CreateMap<PhotoForCreationDTO, Photo>();
         }
     }
 }
