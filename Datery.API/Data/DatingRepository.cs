@@ -26,6 +26,12 @@ namespace Datery.API.Data
             _context.Remove(entity);
         }
 
+        public async Task<Photo> GetMainPhoto(int userId)
+        {
+            var photo = await _context.Photos.Where(p => p.UserId == userId && p.IsMain == true).FirstOrDefaultAsync();
+            return photo;
+        }
+
         public async Task<Photo> GetPhoto(int id)
         {
             var photo = await _context.Photos.Where(p => p.Id == id).FirstOrDefaultAsync();

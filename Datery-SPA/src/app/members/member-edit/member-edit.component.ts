@@ -6,6 +6,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../_services/auth.service';
 import { UserService } from '../../_services/user.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-member-edit',
@@ -39,5 +40,9 @@ export class MemberEditComponent implements OnInit {
     }, error => {
       this.alertify.error(error)
     });
+  }
+
+  updateMainPhoto(photoURL){
+    this.user.photoURL = photoURL;
   }
 }
