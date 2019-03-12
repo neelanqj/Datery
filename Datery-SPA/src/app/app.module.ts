@@ -2,7 +2,7 @@ import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -53,6 +53,7 @@ export function tokenGetter() {
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      ReactiveFormsModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoute),
