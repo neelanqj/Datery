@@ -30,6 +30,7 @@ namespace Datery.API.Helpers
             CreateMap<UserForUpdateDTO, User>();
             CreateMap<Photo, PhotoForReturnDTO>();
             CreateMap<PhotoForCreationDTO, Photo>();
+            CreateMap<UserForRegistrationDTO, User>();
         }
     }
 }

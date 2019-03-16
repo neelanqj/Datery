@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { User } from '../_models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +15,8 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
 
+  user: User;
+  bsConfig: Partial<BsDatepickerConfig>;
   model: any = {
     username: null,
     password: null
@@ -19,21 +24,31 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   constructor(private authService: AuthService,
     private alertifyService: AlertifyService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private router: Router) {
   }
 
   ngOnInit() {
+    this.bsConfig = {
+      containerClass: 'theme-red'
+    };
     // this.registerForm = new FormGroup({
     //   username: new FormControl('', Validators.required),
     //   password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
     //   confirmPassword: new FormControl('', Validators.required)
     // }, this.passwordMatchValidator);
     this.createRegisterForm();
+
   }
 
   createRegisterForm(){
     this.registerForm = this.fb.group({
+      gender: ['male'],
       username: ['', Validators.required],
+      knownAs: ['', Validators.required],
+      dateOfBirth: [null, Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
       password: ['',[Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
       confirmPassword: ['', Validators.required]
     }, { validator: this.passwordMatchValidator });
@@ -44,14 +59,19 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    // this.authService.register(this.model).subscribe(
-    //   () => {
-    //     console.log("registration success");
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    if(this.registerForm.valid) {
+      this.user = Object.assign({}, this.registerForm.value);
+      this.authService.register(this.user).subscribe(() => {
+        this.alertifyService.success('You have successfully registered!');
+      }, error => {
+        this.alertifyService.error('An errror occured during registration.');
+      }, () => {
+        this.authService.login(this.user).subscribe(() => {
+          this.router.navigate(['/members']);
+        });
+      });
+    }
+
     console.log('this.registerForm.value');
   }
 

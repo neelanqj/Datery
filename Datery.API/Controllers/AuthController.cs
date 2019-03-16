@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Datery.API.Data;
 using Datery.API.DTOs;
 using Datery.API.Models;
@@ -22,10 +23,13 @@ namespace Datery.API.Controllers
 
         public readonly IConfiguration _config;
 
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        public readonly IMapper _mapper;
+
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _repo = repo;
             _config = config;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
@@ -35,13 +39,17 @@ namespace Datery.API.Controllers
             if (await _repo.UserExists(userForRegistrationDTO.Username))
                 return BadRequest("Username already exists");
 
-            var userToCreate = new User
-            {
-                Username = userForRegistrationDTO.Username
-            };
+            //var userToCreate = new User
+            //{
+            //    Username = userForRegistrationDTO.Username
+            //};
+            var userToCreate = _mapper.Map<User>(userForRegistrationDTO);
 
             var createdUser = await _repo.Register(userToCreate, userForRegistrationDTO.Password);
-            return StatusCode(201);
+
+            var userToReturn = _mapper.Map<UserForDetailDTO>(createdUser);
+
+            return CreatedAtRoute("GetUser", new { controller = "Users" , id = createdUser.Id }, userToReturn);
         }
 
         [HttpPost("login")]
