@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Datery.API.Data;
 using Datery.API.DTOs;
+using Datery.API.Helpers;
 using Datery.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Datery.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
