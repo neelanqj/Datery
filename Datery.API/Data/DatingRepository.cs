@@ -45,11 +45,11 @@ namespace Datery.API.Data
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
-        {
-            var users = await _context.Users.Include(p => p.Photos).ToListAsync();
-            return users;
-        }
+        //public async Task<IEnumerable<User>> GetUsers()
+        //{
+        //    var users = await _context.Users.Include(p => p.Photos).ToListAsync();
+        //    return users;
+        //}
 
         public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {

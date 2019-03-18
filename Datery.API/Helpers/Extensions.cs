@@ -25,6 +25,7 @@ namespace Datery.API.Helpers
             
             response.Headers.Add("Pagination", JsonConvert.SerializeObject(paginationHeader, camelCaseFormatter));
             response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
+            response.Headers.Add("Access-Control-Allow-Origins", "*");
         }
 
         public static int CalculateAge(this DateTime dateOfBirth)

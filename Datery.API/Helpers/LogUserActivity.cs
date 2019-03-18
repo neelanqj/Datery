@@ -25,7 +25,7 @@ namespace Datery.API.Helpers
             user.LastActive = DateTime.Now;
 
             await repo.SaveAll();
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
     }
 }
