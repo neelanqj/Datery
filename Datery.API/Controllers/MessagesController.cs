@@ -44,6 +44,25 @@ namespace Datery.API.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetMessagesForUser(int userId, 
+            [FromQuery]MessageParams messageParams)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            messageParams.UserId = userId;
+
+            var messagesFromRepo = await _repo.GetMessagesForUser(messageParams);
+            var messages = Mapper.Map<IEnumerable<MessageToReturnDTO>>(messagesFromRepo);
+
+            Response.AddPagination(messagesFromRepo.CurrentPage,
+                messagesFromRepo.PageSize, messagesFromRepo.TotalCount,
+                messagesFromRepo.TotalPages);
+
+            return Ok(messages);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDTO messageForCreationDTO)
         {
@@ -61,11 +80,26 @@ namespace Datery.API.Controllers
 
             _repo.Add(message);
 
+            var messageToReturn = _mapper.Map<MessageForCreationDTO>(message);
+
             if (await _repo.SaveAll())
-                return CreatedAtRoute("GetMessage", new { id = message.Id }, message);
+                return CreatedAtRoute("GetMessage", new { id = message.Id }, messageToReturn);
 
             throw new Exception("Failed to create the message.");
         }
+
+        [HttpGet("thread/{recipientId}")]
+        public async Task<IActionResult> GetMessageThread(int userId, int recipientId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var messagesFromRepo = await _repo.GetMessageThread(userId, recipientId);
+            var messageThread = _mapper.Map<IEnumerable<MessageToReturnDTO>>(messagesFromRepo);
+            return Ok(messageThread);
+
+        }
+
 
     }
 }
