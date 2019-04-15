@@ -20,7 +20,7 @@ namespace Datery.API.DTOs
         [Required]
         public DateTime DateOfBirth { get; set; }
         [Required]
-        public string Contry { get; set; }
+        public string Country { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
 

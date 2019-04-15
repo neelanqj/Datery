@@ -54,7 +54,7 @@ namespace Datery.API.Controllers
             messageParams.UserId = userId;
 
             var messagesFromRepo = await _repo.GetMessagesForUser(messageParams);
-            var messages = Mapper.Map<IEnumerable<MessageToReturnDTO>>(messagesFromRepo);
+            var messages = _mapper.Map<IEnumerable<MessageToReturnDTO>>(messagesFromRepo);
 
             Response.AddPagination(messagesFromRepo.CurrentPage,
                 messagesFromRepo.PageSize, messagesFromRepo.TotalCount,
@@ -66,7 +66,10 @@ namespace Datery.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDTO messageForCreationDTO)
         {
-            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+
+            var sender = await _repo.GetUser(userId);
+
+            if (sender.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
             messageForCreationDTO.SenderId = userId;
@@ -80,10 +83,13 @@ namespace Datery.API.Controllers
 
             _repo.Add(message);
 
-            var messageToReturn = _mapper.Map<MessageForCreationDTO>(message);
 
             if (await _repo.SaveAll())
+            {
+                var messageToReturn = _mapper.Map<MessageToReturnDTO>(message);
                 return CreatedAtRoute("GetMessage", new { id = message.Id }, messageToReturn);
+
+            }
 
             throw new Exception("Failed to create the message.");
         }
