@@ -5,6 +5,7 @@ import { Message } from '../_models/message';
 import { Pagination, PaginatedResult } from '../_models/pagination';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
+import { subscribeOn } from 'rxjs/operators';
 
 @Component({
   selector: 'app-messages',
@@ -36,6 +37,18 @@ export class MessagesComponent implements OnInit {
           this.alertify.error(error);
         }
       );
+  }
+
+  deleteMessage(id: number) {
+    this.alertify.confirm('Are you sure you want to delete this message?', () => {
+      this.userService.deleteMessage(id, this.authService.decodedToken.nameid)
+      .subscribe(() =>{
+        this.messages.splice(this.messages.findIndex( m => m.id === id), 1);
+        this.alertify.success('Message has been deleted.');
+      }, error => {
+        this.alertify.error('Failed to delete the message.');
+      })
+    });
   }
 
   pageChanged(event: any): void {
